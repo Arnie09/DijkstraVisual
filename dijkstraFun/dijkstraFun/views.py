@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.http import JsonResponse
 from django.shortcuts import render
 import json
-from DijkstraOnGraph import DijkstraGraph
+from dijkstraFun.DijkstraOnGraph import DijkstraGraph
 
 obj = None
 
