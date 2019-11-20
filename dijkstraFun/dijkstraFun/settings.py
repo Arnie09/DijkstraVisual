@@ -51,7 +51,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'dijkstraFun.urls'
+ROOT_URLCONF = 'dijkstraFun.dijkstraFun.urls'
 
 TEMPLATES = [
     {
