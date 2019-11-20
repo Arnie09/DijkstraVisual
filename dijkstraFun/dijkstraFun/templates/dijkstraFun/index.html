@@ -237,7 +237,7 @@
                                 }
                             }
                             for(i = 0;i<path.length;i++){
-                                if(!(visited[i] == startingCoordinate || visited[i] == destinationCoordinate)){
+                                if(visited[i] != startingCoordinate && visited[i] != destinationCoordinate){
                                     var newBox = document.getElementById(path[i])
                                     newBox.className = "path"
                                 }
