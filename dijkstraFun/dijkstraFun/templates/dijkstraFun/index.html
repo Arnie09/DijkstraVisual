@@ -232,13 +232,15 @@
                             alert("No way to reach destination from source!")
                             var i = 0
                             for(i = 0;i<visited.length;i++){
-                                if (!payload.includes(visited[i])){
+                                if (!(payload.includes(visited[i]) || visited[i] == startingCoordinate || visited[i] == destinationCoordinate)){
                                     document.getElementById(visited[i]).className = "visited"
                                 }
                             }
                             for(i = 0;i<path.length;i++){
-                                var newBox = document.getElementById(path[i])
-                                newBox.className = "path"
+                                if(!(visited[i] == startingCoordinate || visited[i] == destinationCoordinate)){
+                                    var newBox = document.getElementById(path[i])
+                                    newBox.className = "path"
+                                }
                             }
 
                         },
