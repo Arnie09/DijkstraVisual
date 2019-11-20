@@ -237,11 +237,12 @@
                                 }
                             }
                             for(i = 0;i<path.length;i++){
-                                if(visited[i] != startingCoordinate && visited[i] != destinationCoordinate){
+                                if(path[i] != startingCoordinate && path[i] != destinationCoordinate){
                                     var newBox = document.getElementById(path[i])
                                     newBox.className = "path"
                                 }
                             }
+
 
                         },
                         error:function(){
