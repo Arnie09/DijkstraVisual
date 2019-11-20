@@ -66,8 +66,8 @@
             
             }
             
-            function addwallButtonClick(id){
-                var button = document.getElementById(id)
+            function addwallButtonClick(){
+                var button = document.getElementById("walls")
                 if (times == 0){
                     button.style.backgroundColor = '#545454';
                     button.style.color = '#ffffff'
@@ -93,6 +93,7 @@
 
             $(document).on('click','#start',function(e){
                 e.preventDefault()
+                addwallButtonClick()
                 if (obstacles.size == 0){
                     alert("Please mark some obstacles!")
                 }
@@ -104,8 +105,22 @@
                         data:{
                             'arr[]':payload,
                         },
-                        success:function(){
-                            alert('Success')
+                        success:function(msg){
+                            var visited = msg.progress
+                            var path = msg.path
+                            var i = 0
+                            for(i = 0;i<visited.length;i++){
+                                if (!payload.includes(visited[i])){
+                                    var box = document.getElementById(visited[i])
+                                    box.style.backgroundColor = '#40E0D0'
+                                }
+                            }
+                            for(i = 0;i<path.length;i++){
+                                var newBox = document.getElementById(path[i])
+                                newBox.style.backgroundColor = '#00008b'
+                            }
+                            
+
                         },
                         error:function(){
                             console.log("Error")
@@ -115,8 +130,6 @@
                 }
             })
 
-
-            
         </script>
 
         <link rel = "stylesheet" type = "text/css" href = "{% static 'css/main.css' %}">
@@ -147,9 +160,9 @@
         </nav>
         <br>
         <br>
-        <div class = "controls" >
-            <button id = "walls" class="btn btn-outline-secondary btn-sm" type="button" onclick=" addwallButtonClick(this.id)">Add walls</button>
-            <button id = "walls" class="btn btn-outline-secondary btn-sm" type="button" onclick=" removewallButton(this.id)">Clear walls</button>
+        <div class = "controls" class="mt-2 col-md-12">
+            <button id = "walls" class="btn btn-outline-secondary btn-sm" type="button" onclick=" addwallButtonClick()">Add walls</button>
+            <button id = "clearwalls" class="btn btn-outline-secondary btn-sm" type="button" onclick=" removewallButton(this.id)">Clear walls</button>
             <button type="button" id ="start" class="btn btn-secondary btn-sm">See Dijkstra</button>{% csrf_token %}
         </div> 
         <br>
@@ -165,3 +178,4 @@
         </table>
     </body>
 </html>
+

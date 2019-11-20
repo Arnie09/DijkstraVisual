@@ -1,10 +1,13 @@
 from collections import deque
+import socket
+import asyncio
+
 
 class DijkstraGraph:
 
     def __init__(self,starting,ending,obstacles):
-        self.row = 5
-        self.column = 7
+        self.row = 30
+        self.column = 40
         self.startingX = starting[0]
         self.startingY = starting[1]
         self.finalX = ending[0]
@@ -15,6 +18,7 @@ class DijkstraGraph:
         self.distance_mat = []
         self.visited = set([])
         self.shorted = deque([])
+        self.shortestPath = []
 
         for i in range(self.row):
             for j in range(self.column):
@@ -39,16 +43,13 @@ class DijkstraGraph:
                     self.distance_mat[i][j] = -1
 
         self.dijkstra(self.startingX,self.startingY)
-        for i in range(self.row):
-            print(*self.distance_mat[i])
-
 
     def calculateShortestPath(self,xCoordinate,yCoordinate):
         if xCoordinate == self.startingX and yCoordinate == self.startingY:
-            print(xCoordinate,yCoordinate)
+            self.shortestPath.append([xCoordinate,yCoordinate])
             return
         else:
-            print(xCoordinate,yCoordinate,"-----",end = " ")
+            self.shortestPath.append([xCoordinate,yCoordinate])
             adjacent_points = self.adjacency_matrix[(xCoordinate,yCoordinate)]
             listOfPoinnts = []
             for i in adjacent_points:
@@ -80,4 +81,4 @@ class DijkstraGraph:
                     if self.distance_mat[i[0]][i[1]]>self.distance_mat[x][y]+1:
                         self.distance_mat[i[0]][i[1]] = self.distance_mat[x][y]+1
 
-obj = DijkstraGraph([1,1],[3,5],[[0,3],[1,3],[2,3],[3,3]])
+#obj = DijkstraGraph([1,1],[3,5],[[0,3],[1,3],[2,3],[3,3]])
