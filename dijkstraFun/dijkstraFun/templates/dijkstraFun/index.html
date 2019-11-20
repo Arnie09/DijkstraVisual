@@ -15,6 +15,37 @@
             table, tr, td {
                  border: 1px solid black;
             }
+            button{
+                margin-left:10px;
+            }
+
+            @keyframes visitedAnimation {
+                0% {
+                    transform: scale(.3);
+                    background-color: rgba(0, 0, 66, 0.75);
+                    border-radius: 100%;
+                }
+
+                50% {
+                    background-color: rgba(17, 104, 217, 0.75);
+                }
+
+                75% {
+                    transform: scale(1.2);
+                    background-color: rgba(0, 217, 159, 0.75)
+                }
+
+                100% {
+                    transform: scale(1.0);
+                    background-color: rgba(0, 190, 218, 0.75);
+                }
+            }
+
+            .mother {
+                background-color: #fff8e1;
+                /* background-image: radial-gradient(red 5%, yellow 15%, green 60%); */
+            }
+
             .wallButton {
                 margin-left:auto;
                 margin-right:auto;
@@ -26,6 +57,24 @@
                 color: #545454;
                 /* border-color: #a52a2a; */
             }
+
+
+            .visited{
+                border: 1px solid rgb(175, 216, 248);
+                animation-name: visitedAnimation;
+                animation-duration: 1.5s;
+                animation-timing-function: ease-out;
+                animation-delay: 0;
+                animation-direction: alternate;
+                animation-iteration-count: 1;
+                animation-fill-mode: forwards;
+                animation-play-state: running;
+            }
+
+            .unvisited{
+                background-color: #ffffff;
+            }
+
             .controls{
                 text-align: center;
             }
@@ -35,6 +84,14 @@
         <script type="text/javascript" src="{% static 'Jquery/jquery.cookie.js' %}"></script>
         
         <script type="text/javascript">
+
+            function initial(){
+                var box = document.getElementById('17-7')
+                box.style.backgroundColor = '#dc3545'
+
+                var box = document.getElementById('19-32')
+                box.style.backgroundColor = '#007bff'
+            }
 
             var csrftoken = $.cookie('csrftoken')
 
@@ -61,7 +118,6 @@
                     var cell = document.getElementById(id)
                     cell.style.backgroundColor = '#000000';
                     obstacles.add(id)
-                    b = "hehe";
                 }
             
             }
@@ -69,6 +125,7 @@
             function addwallButtonClick(){
                 var button = document.getElementById("walls")
                 if (times == 0){
+                    initial()
                     button.style.backgroundColor = '#545454';
                     button.style.color = '#ffffff'
                     times = 1
@@ -86,6 +143,7 @@
                 var ar = document.getElementsByTagName('td')
                 var i;
                 for (i = 0;i<ar.length;i++){
+                    ar[i].className = "unvisited"
                     ar[i].style.backgroundColor = '#ffffff'
                 }
                 obstacles =  new Set([])
@@ -93,7 +151,9 @@
 
             $(document).on('click','#start',function(e){
                 e.preventDefault()
-                addwallButtonClick()
+                if (times == 1){
+                    addwallButtonClick()
+                }
                 if (obstacles.size == 0){
                     alert("Please mark some obstacles!")
                 }
@@ -111,15 +171,19 @@
                             var i = 0
                             for(i = 0;i<visited.length;i++){
                                 if (!payload.includes(visited[i])){
-                                    var box = document.getElementById(visited[i])
-                                    box.style.backgroundColor = '#40E0D0'
+                                    document.getElementById(visited[i]).className = "visited"
+                                    // box.style.backgroundColor = '#40E0D0'
+                                    // (function(i) {
+                                    //     setTimeout(function() { console.log(i); }, 50);
+                                    // })(i);
                                 }
                             }
                             for(i = 0;i<path.length;i++){
                                 var newBox = document.getElementById(path[i])
+                                newBox.className = "unvisited"
                                 newBox.style.backgroundColor = '#00008b'
                             }
-                            
+                            initial()
 
                         },
                         error:function(){
@@ -139,7 +203,7 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     </head>
 
-    <body>
+    <body class="mother">
     
         <!-- Navbar -->
         <nav class="navbar navbar-dark bg-dark">
@@ -160,9 +224,11 @@
         </nav>
         <br>
         <br>
-        <div class = "controls" class="mt-2 col-md-12">
-            <button id = "walls" class="btn btn-outline-secondary btn-sm" type="button" onclick=" addwallButtonClick()">Add walls</button>
-            <button id = "clearwalls" class="btn btn-outline-secondary btn-sm" type="button" onclick=" removewallButton(this.id)">Clear walls</button>
+        <div class = "controls">
+            <button id = "initial" class = "btn btn-secondary btn-sm mr-5 bg-danger border-0">Starting Point</button>
+            <button id = "final" class = "btn btn-secondary btn-sm mr-5 bg-primary border-0">Final Point</button>
+            <button id = "walls" class="btn btn-outline-secondary btn-sm mr-5" type="button" onclick=" addwallButtonClick()">Add walls</button>
+            <button id = "clearwalls" class="btn btn-outline-secondary btn-sm mr-5" type="button" onclick=" removewallButton(this.id)">Clear walls</button>
             <button type="button" id ="start" class="btn btn-secondary btn-sm">See Dijkstra</button>{% csrf_token %}
         </div> 
         <br>
