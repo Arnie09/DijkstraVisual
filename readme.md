@@ -4,4 +4,4 @@ I was insipired by Clément Mihailescu's project [Pathfinding-Visualiser](https:
 
 If you wish to run this locally you may have to change some path settings in settings.py.
 
-project is hoisted at [https://dijkstrafun.herokuapp.com](https://dijkstrafun.herokuapp.com)
+Project is hoisted at [https://dijkstrafun.herokuapp.com](https://dijkstrafun.herokuapp.com). Please use Google Chrome to view this web-app.
