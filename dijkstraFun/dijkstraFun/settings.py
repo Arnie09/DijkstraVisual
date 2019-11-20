@@ -124,6 +124,8 @@ TEMPLATE_DIRS = [
     os.path.join(os.path.dirname(__file__) , 'templates').replace('\\','/')
 ]
 
+STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'static')
+
 STATIC_DIRS = [
     os.path.join(os.path.dirname(__file__) , 'static').replace('\\','/')
 ]
