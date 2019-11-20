@@ -1,1 +1,1 @@
-web: gunicorn dijkstraFun.wsgi --log-file -
+web: gunicorn dijkstrafun.wsgi --log-file -
