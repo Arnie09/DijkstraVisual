@@ -13,6 +13,7 @@ class DijkstraGraph:
         self.finalX = ending[0]
         self.finalY = ending[1]
         self.obstacles = obstacles
+        self.complete = 0
 
         self.adjacency_matrix = {}
         self.distance_mat = []
@@ -63,8 +64,11 @@ class DijkstraGraph:
         self.shorted.append([x,y])
         while(len(self.visited)<self.row*self.column):
             
+            if len(self.shorted) == 0:
+                return
             x,y = self.shorted.popleft()
             if x == self.finalX and y == self.finalY:
+                self.complete = 1
                 self.calculateShortestPath(x,y)
                 return
             if (x,y) in self.visited:
