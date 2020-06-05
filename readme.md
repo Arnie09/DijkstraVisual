@@ -1,5 +1,7 @@
 A Simple Visualiser for Dijkstra's Algorithm
 
+[![HitCount](http://hits.dwyl.com/Arnie09/https://githubcom/Arnie09/DijkstraVisual.svg)](http://hits.dwyl.com/Arnie09/https://githubcom/Arnie09/DijkstraVisual)
+
 I was insipired by Clément Mihailescu's project [Pathfinding-Visualiser](https://github.com/clementmihailescu/Pathfinding-Visualizer) and decided to come up with my own simplified version of that using Django. 
 
 If you wish to run this locally you may have to change some path settings in settings.py.
